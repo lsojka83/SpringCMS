@@ -2,6 +2,7 @@ package pl.springCMS.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -12,12 +13,13 @@ public class Article {
     private Long id;
     @Column(length = 200)
     private String title;
+    private String content;
     @ManyToOne
     private Author author;
     @OneToMany (fetch = FetchType.EAGER)
     private List<Category> categories;
-    LocalDate created;
-    LocalDate updated;
+    LocalDateTime created;
+    LocalDateTime updated;
 
     public Article() {
     }
@@ -29,13 +31,13 @@ public class Article {
     @PrePersist
     public  void prePersist()
     {
-        created = LocalDate.now();
+        created = LocalDateTime.now();
     }
 
     @PreUpdate
     public void preUpdate()
     {
-        updated = LocalDate.now();
+        updated = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -70,20 +72,28 @@ public class Article {
         this.categories = categories;
     }
 
-    public LocalDate getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
-    public LocalDate getUpdated() {
+    public LocalDateTime getUpdated() {
         return updated;
     }
 
-    public void setUpdated(LocalDate updated) {
+    public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override
@@ -91,6 +101,7 @@ public class Article {
         return "Article{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
                 ", author=" + author +
                 ", categories=" + categories +
                 ", created=" + created +

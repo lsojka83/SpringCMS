@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.springCMS.dao.ArticleDao;
+import pl.springCMS.dao.AuthorDao;
+import pl.springCMS.dao.CategoryDao;
 import pl.springCMS.entity.Article;
 
 import java.util.stream.Collectors;
@@ -13,16 +15,20 @@ import java.util.stream.Collectors;
 public class HomePageController {
 
     private final ArticleDao articleDao;
+    private final AuthorDao authorDao;
+    private final CategoryDao categoryDao;
 
-    public HomePageController(ArticleDao articleDao) {
+    public HomePageController(ArticleDao articleDao, AuthorDao authorDao, CategoryDao categoryDao) {
         this.articleDao = articleDao;
+        this.authorDao = authorDao;
+        this.categoryDao = categoryDao;
     }
 
     @GetMapping("")
     @ResponseBody
     public String home()
     {
-        return articleDao.findAll().stream().limit(5).map(a->a.toString()).collect(Collectors.joining("\n"));
+        return articleDao.findAll().stream().limit(5).map(a->a.toString()).collect(Collectors.joining("</div><div>","<div>","</div>"));
 
 //        return "";
     }
