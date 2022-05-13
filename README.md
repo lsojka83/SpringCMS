@@ -1,1 +1,1 @@
-# spingCMS
+# springCMS
