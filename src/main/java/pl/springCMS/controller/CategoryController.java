@@ -21,72 +21,70 @@ import pl.springCMS.dao.AuthorDao;
 import pl.springCMS.dao.CategoryDao;
 import pl.springCMS.entity.Category;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
 
-    private final ArticleDao articleDao;
-    private final AuthorDao authorDao;
     private final CategoryDao categoryDao;
 
-    public CategoryController(ArticleDao articleDao, AuthorDao authorDao, CategoryDao categoryDao) {
-        this.articleDao = articleDao;
-        this.authorDao = authorDao;
+    public CategoryController(CategoryDao categoryDao) {
         this.categoryDao = categoryDao;
     }
 
     @GetMapping("")
-    @ResponseBody
-    public String showAll()
-    {
-        return categoryDao.findAll().stream().map(c->c.toString()).collect(Collectors.joining("</div><div>","<div>","</div>"));
+//    @ResponseBody
+    public String showAll(Model model) {
+        model.addAttribute("categories", categoryDao.findAll());
+        return "categorylist";
+//        return categoryDao.findAll().stream().map(c->c.toString()).collect(Collectors.joining("</div><div>","<div>","</div>"));
     }
 
     @GetMapping("/add")
-    public String add(Model model)
-    {
+    public String add(Model model) {
         model.addAttribute("category", new Category());
         return "categoryform";
     }
 
     @PostMapping("/add")
-    public String add(Category category)
-    {
-        categoryDao.save(category);
+    public String add(Category category, @RequestParam String confirm) {
+        if(confirm.equals("yes")) {
+            categoryDao.save(category);
+        }
         return "redirect:/category";
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam Long id, Model model)
-    {
-        model.addAttribute("id",id);
-        return "confirmation";
+    public String delete(@RequestParam Long id, Model model) {
+        model.addAttribute("id", id);
+        return "deleteconfirm";
     }
 
     @PostMapping("/delete")
-    public String delete(Model model, @RequestParam Long id, @RequestParam String confirm)
-    {
-        if(confirm.equals("yes"))
-        {
+    public String delete(Model model, @RequestParam Long id, @RequestParam String confirm) {
+        if (confirm.equals("yes")) {
             categoryDao.delete(categoryDao.findById(id));
         }
-        model.addAttribute("categories", categoryDao.findAll());
-        return "redirect:/category";
-    }
+//        model.addAttribute("categories", categoryDao.findAll());
+        return "redirect:/category";    }
 
-    @GetMapping("/update")
-    public String update(Model model, @RequestParam Long id)
-    {
+    @GetMapping("/edit")
+    public String edit(Model model, @RequestParam Long id) {
         model.addAttribute("category", categoryDao.findById(id));
         return "categoryform";
     }
 
-    @PostMapping("/update")
-    public String update(Category category)
-    {
+    @PostMapping("/edit")
+    public String edit(Category category) {
         categoryDao.update(category);
         return "redirect:/category";
+    }
+
+    @ModelAttribute("categories")
+    public List<Category> findAll()
+    {
+        return categoryDao.findAll();
     }
 }

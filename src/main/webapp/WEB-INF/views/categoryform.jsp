@@ -19,11 +19,12 @@
         <form:input path="name" type="text"></form:input>
     </div>
     <div>
-        <label for="name">Description</label>
+        <label for="description">Description</label>
         <form:input path="description" type="text"></form:input>
     </div>
     <div>
-        <form:button name="confirm">Send</form:button>
+        <form:button name="confirm" value="yes">Send</form:button>
+        <form:button name="confirm" value="=no">Cancel</form:button>
     </div>
 </form:form>
 </body>

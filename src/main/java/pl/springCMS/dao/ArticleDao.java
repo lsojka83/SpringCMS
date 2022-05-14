@@ -38,4 +38,9 @@ public class ArticleDao {
                 .getResultList();
     }
 
+    public Article findById(Long id)
+    {
+        return entityManager.find(Article.class, id);
+    }
+
 }

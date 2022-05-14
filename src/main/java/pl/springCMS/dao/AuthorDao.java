@@ -3,6 +3,7 @@ package pl.springCMS.dao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.springCMS.entity.Author;
+import pl.springCMS.entity.Category;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -36,6 +37,11 @@ public class AuthorDao {
     {
         return entityManager.createQuery("SELECT a FROM Author a")
                 .getResultList();
+    }
+
+    public Author findById(Long id)
+    {
+        return entityManager.find(Author.class, id);
     }
 
 }
