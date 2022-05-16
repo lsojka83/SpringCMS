@@ -2,6 +2,15 @@ package pl.springCMS.entity;
 
 import javax.persistence.*;
 
+//Zadanie 2
+//
+//    Utwórz encje o nazwie Author.
+//    Encja ma zawierać następujące pola:
+//
+//    id
+//    firstName
+//    lastName
+
 @Entity
 public class Author {
 

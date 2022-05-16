@@ -24,9 +24,11 @@
         <form:select path="categories"  items="${categories}" itemLabel="name" itemValue="id" multiple="true"></form:select>
     </div>
 
+    <form:hidden path="created"/>
+
     <div>
         <form:button name="confirm" value="yes">Send</form:button>
-        <form:button name="confirm" value="=no">Cancel</form:button>
+        <form:button name="confirm" value="no">Cancel</form:button>
     </div>
 </form:form>
 </body>

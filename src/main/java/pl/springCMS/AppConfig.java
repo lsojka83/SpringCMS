@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import pl.springCMS.converter.AuthorConverter;
 import pl.springCMS.converter.CategoryConverter;
+import pl.springCMS.converter.LocalDateTimeAttributeConverter;
 
 @Configuration
 @ComponentScan("pl.springCMS")
@@ -39,4 +40,6 @@ public class AppConfig implements WebMvcConfigurer{
     public Converter categoryConverter() {
         return new CategoryConverter();
     }
+
+
 }

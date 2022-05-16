@@ -2,6 +2,16 @@ package pl.springCMS.entity;
 
 import javax.persistence.*;
 
+//Zadanie 1
+//
+//    Otwórz IDE a następnie utwórz w nim projekt o nazwie SpringCMS.
+//    Utwórz encje o nazwie Category.
+//    Encja ma zawierać następujące pola:
+//
+//    id
+//    name
+//    description (może przyjmować wartość null)
+
 @Entity
 public class Category {
     @Id

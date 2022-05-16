@@ -6,7 +6,12 @@ import pl.springCMS.entity.Article;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
+
+//Zadanie 1
+//
+//    W klasach ArticleDao, AuthorDao, CategoryDao dodaj metody, które przy użyciu JPQL umożliwią pobieranie wszystkich obiektów danego typu.
 
 @Repository
 @Transactional
@@ -36,6 +41,13 @@ public class ArticleDao {
     {
         return entityManager.createQuery("SELECT a FROM Article a")
                 .getResultList();
+    }
+
+    public List<Article> getLatestFive()
+    {
+        return entityManager.createQuery("SELECT a FROM Article a ORDER BY a.created")
+                .setMaxResults(5).getResultList();
+
     }
 
     public Article findById(Long id)

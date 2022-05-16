@@ -26,6 +26,7 @@ import pl.springCMS.entity.Article;
 import pl.springCMS.entity.Author;
 import pl.springCMS.entity.Category;
 
+import java.awt.*;
 import java.util.List;
 
 @Controller
@@ -82,8 +83,10 @@ public class ArticleController {
     }
 
     @PostMapping("/edit")
-    public String edit(Article article) {
-        articleDao.update(article);
+    public String edit(Article article, @RequestParam String confirm) {
+        if(confirm.equals("yes")) {
+            articleDao.update(article);
+        }
         return "redirect:/article";
     }
 

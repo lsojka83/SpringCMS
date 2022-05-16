@@ -1,9 +1,23 @@
 package pl.springCMS.entity;
 
+import pl.springCMS.converter.LocalDateTimeAttributeConverter;
+
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+
+//Zadanie 3
+//
+//    Utwórz encję Article,
+//    Encja ma zawierać następujące pola:
+//
+//    id
+//    title (max. 200 znaków),
+//    author - (powiązanie relacją do klasy Author) - artykuł może mieć tylko jednego autora
+//    categories - (powiązanie relacją do klasy Category) - artykuł może należeć do wielu kategorii
+//    content
+//    created (wartość ma być automatycznie dodawana podczas zapisu)
+//    updated (wartość ma być automatycznie zmieniana podczas edycji).
 
 @Entity
 public class Article {
@@ -16,9 +30,11 @@ public class Article {
     private String content;
     @ManyToOne
     private Author author;
-    @OneToMany (fetch = FetchType.EAGER)
+    @ManyToMany (fetch = FetchType.EAGER)
     private List<Category> categories;
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
     LocalDateTime created;
+    @Convert(converter = LocalDateTimeAttributeConverter.class)
     LocalDateTime updated;
 
     public Article() {
@@ -29,7 +45,7 @@ public class Article {
     }
 
     @PrePersist
-    public  void prePersist()
+    public void prePersist()
     {
         created = LocalDateTime.now();
     }

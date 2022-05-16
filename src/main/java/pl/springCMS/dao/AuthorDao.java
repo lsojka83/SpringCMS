@@ -9,6 +9,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+//Zadanie 4
+//
+//    Uzupełnij ręcznie dane w bazie, lub stwórz odpowiedni skrypt, który zostanie załadowany podczas startu aplikacji.
+//    Utwórz klasy ArticleDao, AuthorDao, CategoryDao.
+//    W klasach Dao utwórz metody pozwalające na:
+//
+//    zapis encji
+//    usuwanie encji
+//    edycję encji
+
 @Repository
 @Transactional
 public class AuthorDao {
