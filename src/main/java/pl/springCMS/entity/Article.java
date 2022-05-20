@@ -33,9 +33,9 @@ public class Article {
     @ManyToMany (fetch = FetchType.EAGER)
     private List<Category> categories;
     @Convert(converter = LocalDateTimeAttributeConverter.class)
-    LocalDateTime created;
+    private LocalDateTime created;
     @Convert(converter = LocalDateTimeAttributeConverter.class)
-    LocalDateTime updated;
+    private LocalDateTime updated;
 
     public Article() {
     }

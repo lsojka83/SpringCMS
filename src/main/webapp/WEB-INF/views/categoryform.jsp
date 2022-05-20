@@ -24,7 +24,7 @@
     </div>
     <div>
         <form:button name="confirm" value="yes">Send</form:button>
-        <form:button name="confirm" value="=no">Cancel</form:button>
+        <form:button name="confirm" value="no">Cancel</form:button>
     </div>
 </form:form>
 </body>
