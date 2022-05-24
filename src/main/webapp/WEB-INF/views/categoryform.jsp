@@ -17,10 +17,14 @@
     <div>
         <label for="name">Name</label>
         <form:input path="name" type="text"></form:input>
+        <form:errors path="name"/>
+
     </div>
     <div>
         <label for="description">Description</label>
         <form:input path="description" type="text"></form:input>
+        <form:errors path="description"/>
+
     </div>
     <div>
         <form:button name="confirm" value="yes">Send</form:button>

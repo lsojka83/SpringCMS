@@ -10,18 +10,24 @@
     <div>
         <label for="title">Title</label>
         <form:input path="title" type="text" maxlength="200"></form:input>
+        <form:errors path="title"/>
     </div>
     <div>
         <label for="content">Content</label>
         <form:textarea path="content" rows="5" cols="20"></form:textarea>
+        <form:errors path="content"/>
+
     </div>
     <div>
         <label for="author">Author</label>
         <form:select path="author"  items="${authors}" itemLabel="lastName" itemValue="id"></form:select>
+        <form:errors path="author"/>
     </div>
     <div>
         <label for="categories">Categories</label>
         <form:select path="categories"  items="${categories}" itemLabel="name" itemValue="id" multiple="true"></form:select>
+        <form:errors path="categories"/>
+
     </div>
 
     <form:hidden path="created"/>

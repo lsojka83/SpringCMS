@@ -15,14 +15,14 @@ package pl.springCMS.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.springCMS.dao.ArticleDao;
-import pl.springCMS.dao.AuthorDao;
 import pl.springCMS.dao.CategoryDao;
 import pl.springCMS.entity.Category;
 
+import javax.validation.Valid;
+import java.awt.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/category")
@@ -35,11 +35,9 @@ public class CategoryController {
     }
 
     @GetMapping("")
-//    @ResponseBody
     public String showAll(Model model) {
         model.addAttribute("categories", categoryDao.findAll());
         return "categorylist";
-//        return categoryDao.findAll().stream().map(c->c.toString()).collect(Collectors.joining("</div><div>","<div>","</div>"));
     }
 
     @GetMapping("/add")
@@ -49,7 +47,15 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public String add(Category category, @RequestParam String confirm) {
+    public String add(@Valid Category category, BindingResult result, @RequestParam String confirm) {
+        if(confirm.equals("no"))
+        {
+            return "categorylist";
+        }
+        if(result.hasErrors())
+        {
+            return "categoryform";
+        }
         if(confirm.equals("yes")) {
             categoryDao.save(category);
         }
@@ -77,8 +83,18 @@ public class CategoryController {
     }
 
     @PostMapping("/edit")
-    public String edit(Category category) {
-        categoryDao.update(category);
+    public String edit(@Valid Category category, BindingResult result, @RequestParam String confirm) {
+        if(confirm.equals("no"))
+        {
+            return "categorylist";
+        }
+        if(result.hasErrors())
+        {
+            return "categoryform";
+        }
+        if(confirm.equals("yes")) {
+            categoryDao.update(category);
+        }
         return "redirect:/category";
     }
 

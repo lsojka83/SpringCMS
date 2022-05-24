@@ -10,10 +10,13 @@
     <div>
         <label for="firstName">First name</label>
         <form:input path="firstName" type="text"></form:input>
+        <form:errors path="firstName"/>
     </div>
     <div>
         <label for="lastName">Last name</label>
         <form:input path="lastName" type="text"></form:input>
+        <form:errors path="lastName"/>
+
     </div>
     <div>
         <form:button name="confirm" value="yes">Send</form:button>

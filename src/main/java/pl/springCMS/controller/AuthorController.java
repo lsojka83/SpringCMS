@@ -15,6 +15,7 @@ package pl.springCMS.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.springCMS.dao.ArticleDao;
 import pl.springCMS.dao.AuthorDao;
@@ -22,6 +23,7 @@ import pl.springCMS.dao.CategoryDao;
 import pl.springCMS.entity.Author;
 import pl.springCMS.entity.Category;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -48,8 +50,15 @@ public class AuthorController {
     }
 
     @PostMapping("/add")
-    public String add(Author author, @RequestParam String confirm) {
-        if(confirm.equals("yes")) {
+    public String add(@Valid Author author, BindingResult result, @RequestParam String confirm) {
+        if(confirm.equals("no") ) {
+            return "redirect:/author";
+        }
+        if(result.hasErrors())
+        {
+            return "authorform";
+        }
+        if(confirm.equals("yes") ) {
             authorDao.save(author);
         }
         return "redirect:/author";
@@ -75,8 +84,18 @@ public class AuthorController {
     }
 
     @PostMapping("/edit")
-    public String edit(Author author) {
-        authorDao.update(author);
+    public String edit(@Valid Author author, BindingResult result,@RequestParam String confirm) {
+        if(confirm.equals("no") ) {
+            return "redirect:/author";
+        }
+        if(result.hasErrors())
+        {
+            return "authorform";
+        }
+        if(confirm.equals("yes") )
+        {
+            authorDao.update(author);
+        }
         return "redirect:/author";
     }
 

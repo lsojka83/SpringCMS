@@ -1,6 +1,7 @@
 package pl.springCMS.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 //Zadanie 2
 //
@@ -11,13 +12,20 @@ import javax.persistence.*;
 //    firstName
 //    lastName
 
+//    Dla encji Author ustaw następujące ograniczenia:
+//
+//    firstName - pole wymagane
+//    lastName - pole wymagane
+
 @Entity
 public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
 
     public Long getId() {

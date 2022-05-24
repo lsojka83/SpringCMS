@@ -3,6 +3,10 @@ package pl.springCMS.entity;
 import pl.springCMS.converter.LocalDateTimeAttributeConverter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,6 +23,10 @@ import java.util.List;
 //    created (wartość ma być automatycznie dodawana podczas zapisu)
 //    updated (wartość ma być automatycznie zmieniana podczas edycji).
 
+//    title - pole wymagane, maksymalnie 200 znaków
+//    content - pole wymagane, minimalnie 500 znaków
+//    categories - minimum jedna wybrana kategoria
+
 @Entity
 public class Article {
 
@@ -26,11 +34,16 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 200)
+    @NotBlank
+    @Size(max = 200)
     private String title;
+    @NotBlank
+    @Size(min = 500)
     private String content;
     @ManyToOne
     private Author author;
-    @ManyToMany (fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Size(min = 1)
     private List<Category> categories;
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     private LocalDateTime created;
@@ -45,14 +58,12 @@ public class Article {
     }
 
     @PrePersist
-    public void prePersist()
-    {
+    public void prePersist() {
         created = LocalDateTime.now();
     }
 
     @PreUpdate
-    public void preUpdate()
-    {
+    public void preUpdate() {
         updated = LocalDateTime.now();
     }
 

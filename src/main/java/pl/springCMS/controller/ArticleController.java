@@ -18,6 +18,7 @@ package pl.springCMS.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.springCMS.dao.ArticleDao;
 import pl.springCMS.dao.AuthorDao;
@@ -26,6 +27,7 @@ import pl.springCMS.entity.Article;
 import pl.springCMS.entity.Author;
 import pl.springCMS.entity.Category;
 
+import javax.validation.Valid;
 import java.awt.*;
 import java.util.List;
 
@@ -56,7 +58,15 @@ public class ArticleController {
     }
 
     @PostMapping("/add")
-    public String add(Article article, @RequestParam String confirm) {
+    public String add(@Valid Article article, BindingResult result, @RequestParam String confirm) {
+        if(confirm.equals("no"))
+        {
+            return "redirect:/article";
+        }
+        if(result.hasErrors())
+        {
+            return "articleform";
+        }
         if(confirm.equals("yes")) {
             articleDao.save(article);
         }
@@ -83,7 +93,15 @@ public class ArticleController {
     }
 
     @PostMapping("/edit")
-    public String edit(Article article, @RequestParam String confirm) {
+    public String edit(@Valid Article article,BindingResult result, @RequestParam String confirm) {
+        if(confirm.equals("no"))
+        {
+            return "redirect:/article";
+        }
+        if(result.hasErrors())
+        {
+            return "articleform";
+        }
         if(confirm.equals("yes")) {
             articleDao.update(article);
         }

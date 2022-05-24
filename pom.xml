@@ -72,6 +72,13 @@
             <version>2.3.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.0.17.Final</version>
+        </dependency>
+
+
         <!--        logger-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
